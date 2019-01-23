@@ -40,7 +40,7 @@ class App extends Component {
           <Route exact path="/users" component={User} />
           <Route exact path="/groups" component={Group} />
           <Route path="/users/:userId" component={UserEdit} />
-          <Route path="/groups/:groupId" component={GroupEdit} />
+          <Route path="/groups/:groupId" component={GroupEdit}/>
 
         </Switch>
       </div>
