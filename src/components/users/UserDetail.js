@@ -17,7 +17,7 @@ class UserDetail extends Component {
     return (
         
         <tr>
-            <td>{this.props.index}</td>
+            <td>{this.props.index + 1}</td>
             <td>{this.props.list.name}</td>
             <td>{this.props.list.email}</td>
             <td>

@@ -24,7 +24,7 @@ class Example extends Component {
     e.preventDefault();
     console.log(`The values are ${this.state.example}`);
     const obj = {
-      example: this.state.example
+      name: this.state.example
     }
     axios.post('https://tk-res.herokuapp.com/api/v1/examples', obj)
     .then(res => console.log(res.data)); 
