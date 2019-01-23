@@ -9,7 +9,7 @@ class GroupDetail extends Component {
     }
 
     delete() {
-        axios.delete('https://tk-res.herokuapp.com/api/v1/group/'+ this.props.lists._id)
+        axios.delete('https://tk-res.herokuapp.com/api/v1/groups/'+ this.props.list._id)
         .then(console.log('Deleted'))
         .catch(err => console.error(err));
     }

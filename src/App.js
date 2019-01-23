@@ -7,7 +7,7 @@ import {BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Example from './components/example/Example';
 import User from './components/users/User';
 import Group from './components/groups/Group';
-import UserEdit from './components/users/UserEdit'; 
+import UserEdit from './components/users/UserEdit';
 import GroupEdit from './components/groups/GroupEdit'; 
 
 

@@ -15,7 +15,12 @@ class GroupEdit extends Component {
       }
       componentDidMount() {
         axios.get('https://tk-res.herokuapp.com/api/v1/groups/' + this.props.match.params.groupId)
-        .then(data => this.setState({groups: data.data}))
+        .then(res => {
+          this.setState({
+            name: res.data.name,
+            members: res.data.members
+        })
+        })
         .catch(err => console.error(err));
       }
     
@@ -55,7 +60,7 @@ class GroupEdit extends Component {
                 <input 
                 type="text" 
                 className="form-control"
-                value={this.state.namee}
+                value={this.state.name}
                 onChange = {this.onChangeGroup}
                 />
             </div>
@@ -68,10 +73,11 @@ class GroupEdit extends Component {
                 onChange = {this.onChangeMember}
                 />
             </div>
+
             <div className="form-group">
-                <input type="submit" value="Add Group"className="btn btn-primary"/>
+                <input type="submit" value="Edit Group"className="btn btn-primary"/>
             </div>
-        </form>
+          </form>
         </div>
         
     );

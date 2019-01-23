@@ -4,9 +4,11 @@ import GroupDetail from './GroupDetail';
 class Group extends Component {
   constructor(props) {
     super(props);
+    
     this.onChangeGroup = this.onChangeGroup.bind(this);
     this.onChangeMembers = this.onChangeMembers.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+
 
     this.state = {
       name: '', 
@@ -43,9 +45,10 @@ class Group extends Component {
 
   groupRow() {
     return this.state.groups.map(function(list, i) {
-      return <GroupDetail list ={list} index={i} />;
+      return <GroupDetail list = {list} index={i} />;
     })
   }
+
 
   componentDidMount() {
     axios.get('https://tk-res.herokuapp.com/api/v1/groups')
@@ -79,7 +82,7 @@ class Group extends Component {
                 <input 
                 type="text" 
                 className="form-control"
-                value={this.state.namee}
+                value={this.state.name}
                 onChange = {this.onChangeGroup}
                 />
               </div>
@@ -88,10 +91,13 @@ class Group extends Component {
                 <input 
                 type="text" 
                 className="form-control"
-                value={this.state.members}
                 onChange = {this.onChangeMember}
                 />
+                <div>
+                </div>
+                
               </div>
+              
               <div className="form-group">
                 <input type="submit" value="Add Group"className="btn btn-primary"/>
               </div>
