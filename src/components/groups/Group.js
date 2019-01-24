@@ -1,19 +1,41 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import GroupDetail from './GroupDetail';
+
+const ParentComponent = (props) => <div>
+    <div id="children-pane">
+      {props.children}
+    </div>
+    <p><a href="#" onClick={props.addChild}>Add another Member</a></p>  
+  </div>
+
+
+const ChildComponent = (props) => <div>
+    <input 
+        type="text" 
+        className="form-control"
+        name= {props.number}
+        onChange = {props.handleChange}
+    />
+</div>;
+const members = [];
+
 class Group extends Component {
+  
   constructor(props) {
     super(props);
     
     this.onChangeGroup = this.onChangeGroup.bind(this);
-    this.onChangeMembers = this.onChangeMembers.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
+    this.onAddChild = this.onAddChild.bind(this);
+    this.handleChange = this.handleChange.bind(this);
 
+    
     this.state = {
       name: '', 
-      members: [],
-      groups: []
+      groups: [],
+      numChildren: 0
     }
   }
 
@@ -22,24 +44,19 @@ class Group extends Component {
       name: e.target.value,
     });
   }
-  onChangeMembers(e) {
-    this.setState({
-      members: e.target.value,
-    });
-  }
 
   onSubmit(e) {
+
     e.preventDefault();
-    console.log(`The values are ${this.state.user}, ${this.state.email}` );
     const obj = {
       name: this.state.name,
-      member: this.state.member
+      members: members
     }
+    console.log(obj)
     axios.post('https://tk-res.herokuapp.com/api/v1/groups', obj)
     .then(res => console.log(res.data)); 
     this.setState({
-      name: '',
-      members: []
+      name: ''
     });
   }
 
@@ -55,7 +72,27 @@ class Group extends Component {
     .then(data => this.setState({groups: data.data}))
     .catch(err => console.error(err));
   }
+
+  onAddChild() {
+    this.setState({
+      numChildren: this.state.numChildren + 1
+    });
+  }
+
+  handleChange(e) {
+    
+    members[e.target.name] = e.target.value;
+  }
+
+  
+
+  
+
   render() {
+    const children = [];
+    for (var i = 0; i < this.state.numChildren; i++) {
+      children.push(<ChildComponent handleChange ={this.handleChange} key ={i} number ={i} />);
+    };
     return (
       <div>
           <h1>Group Component</h1>
@@ -88,13 +125,9 @@ class Group extends Component {
               </div>
               <div className="form-group">
                 <label>Members</label>
-                <input 
-                type="text" 
-                className="form-control"
-                onChange = {this.onChangeMember}
-                />
-                <div>
-                </div>
+                <ParentComponent addChild={this.onAddChild}>
+                  {children}
+                </ParentComponent>
                 
               </div>
               
@@ -106,5 +139,7 @@ class Group extends Component {
     );
   }
 }
+
+
 
 export default Group;

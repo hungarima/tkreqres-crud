@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+const members = [];
+
 class GroupEdit extends Component {
     constructor(props) {
         super(props);
         this.onChangeGroup = this.onChangeGroup.bind(this);
-        this.onChangeMembers = this.onChangeMembers.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+
+        this.handleChange = this.handleChange.bind(this);
     
         this.state = {
           name: '', 
@@ -29,29 +32,47 @@ class GroupEdit extends Component {
           name: e.target.value,
         });
       }
-      onChangeMembers(e) {
-        this.setState({
-          members: e.target.value,
-        });
-      }
+
     
       onSubmit(e) {
         e.preventDefault();
         console.log(`The values are ${this.state.name}, ${this.state.members}` );
         const obj = {
           name: this.state.name,
-          members: this.state.members
+          members: members
         }
-        axios.post('https://tk-res.herokuapp.com/api/v1/groups', obj)
+        console.log(obj);
+        axios.put('https://tk-res.herokuapp.com/api/v1/groups/'+ this.props.match.params.groupId, obj)
         .then(res => console.log(res.data)); 
         this.setState({
           name: '',
           members: []
         });
       }
+
+      handleChange(e) {
+        members[e.target.name] = e.target.value;
+        console.log(members);
+      }
+
+      // groupEditRow() {
+      //   return this.state.members.map(function(member, i) {
+      //     console.log(member);
+      //     return <GroupEditRow member = {member} key= {i} index= {i} handleChange = {this.handleChange}/>
+      //   })
+      // }
     
       
   render() {
+    const groupEditRow = this.state.members.map ((member,index) => 
+      <input
+      type="text"
+      className="form-control"
+      name= {index}
+      onChange= {this.handleChange}
+
+      />
+      )
     return (
         <div>
             <form onSubmit={this.onSubmit}>
@@ -66,12 +87,7 @@ class GroupEdit extends Component {
             </div>
             <div className="form-group">
                 <label>Members</label>
-                <input 
-                type="text" 
-                className="form-control"
-                value={this.state.members}
-                onChange = {this.onChangeMember}
-                />
+                {groupEditRow}
             </div>
 
             <div className="form-group">
