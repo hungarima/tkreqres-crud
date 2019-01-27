@@ -33,9 +33,8 @@ class Example extends Component {
       // window.location.reload();
     }); 
     this.setState({
+      examples: [...this.state.examples, obj],
       example: ''
-    }, () => {
-      console.log(this.state);
     });
     
   }

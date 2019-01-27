@@ -35,18 +35,22 @@ class User extends Component {
       email: this.state.email
     }
     axios.post('https://tk-res.herokuapp.com/api/v1/users', obj)
-    .then(res => console.log(res.data)); 
+    .then(res => {
+      console.log(res.data)
+      this.setState({
+        users: [...this.state.users, obj]
+      })
+    }); 
     this.setState({
       user: '',
       email: ''
     });
-    this.props.history.push('/users');
-     
   }
+
 
   userRow() {
     return this.state.users.map(function(list, i) {
-      return <UserDetail list ={list} index={i}/>;
+      return <UserDetail list ={list} index={i} />;
     })
   }
 
