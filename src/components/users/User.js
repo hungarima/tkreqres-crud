@@ -40,11 +40,13 @@ class User extends Component {
       user: '',
       email: ''
     });
+    this.props.history.push('/users');
+     
   }
 
   userRow() {
     return this.state.users.map(function(list, i) {
-      return <UserDetail list ={list} index={i} />;
+      return <UserDetail list ={list} index={i}/>;
     })
   }
 

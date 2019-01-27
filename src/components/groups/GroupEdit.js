@@ -55,13 +55,7 @@ class GroupEdit extends Component {
         console.log(members);
       }
 
-      // groupEditRow() {
-      //   return this.state.members.map(function(member, i) {
-      //     console.log(member);
-      //     return <GroupEditRow member = {member} key= {i} index= {i} handleChange = {this.handleChange}/>
-      //   })
-      // }
-    
+
       
   render() {
     const groupEditRow = this.state.members.map ((member,index) => 
@@ -70,7 +64,7 @@ class GroupEdit extends Component {
       className="form-control"
       name= {index}
       onChange= {this.handleChange}
-
+      placeholder={index}
       />
       )
     return (

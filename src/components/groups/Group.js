@@ -6,7 +6,7 @@ const ParentComponent = (props) => <div>
     <div id="children-pane">
       {props.children}
     </div>
-    <p><a href="#" onClick={props.addChild}>Add another Member</a></p>  
+    <p><button onClick={props.addChild}>Add another Member</button></p>  
   </div>
 
 
@@ -16,6 +16,7 @@ const ChildComponent = (props) => <div>
         className="form-control"
         name= {props.number}
         onChange = {props.handleChange}
+        placeholder= {props.number+1}
     />
 </div>;
 const members = [];

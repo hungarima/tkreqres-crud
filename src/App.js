@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import {BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { Switch, Route, Link, withRouter } from 'react-router-dom';
 
 
 import Example from './components/example/Example';
@@ -37,7 +37,7 @@ class App extends Component {
         </nav>
         <Switch>
           <Route path="/examples" exact component={Example} />
-          <Route exact path="/users" component={User} />
+          <Route exact path="/users" component={User}/>
           <Route exact path="/groups" component={Group} />
           <Route path="/users/:userId" component={UserEdit} />
           <Route path="/groups/:groupId" component={GroupEdit}/>
@@ -48,4 +48,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

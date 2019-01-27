@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import ExampleDetail from './ExampleDetail';
 
+
 class Example extends Component {
   constructor(props) {
     super(props);
@@ -27,10 +28,16 @@ class Example extends Component {
       name: this.state.example
     }
     axios.post('https://tk-res.herokuapp.com/api/v1/examples', obj)
-    .then(res => console.log(res.data)); 
+    .then(res => {
+      console.log(res.data);
+      // window.location.reload();
+    }); 
     this.setState({
       example: ''
+    }, () => {
+      console.log(this.state);
     });
+    
   }
 
   exampleRow() {
