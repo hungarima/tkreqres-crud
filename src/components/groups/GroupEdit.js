@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-const members = [];
+let members = [];
 
 class GroupEdit extends Component {
     constructor(props) {
@@ -23,6 +23,9 @@ class GroupEdit extends Component {
             name: res.data.name,
             members: res.data.members
         })
+        members = this.state.members;
+        console.log(members);
+        
         })
         .catch(err => console.error(err));
       }
@@ -34,26 +37,32 @@ class GroupEdit extends Component {
       }
 
       groupEditRow() {
-        return this.state.members.map ((member,index) =>{
-          return <input
+        return this.state.members.map((member,index) => 
+          <input
           type="text"
           className="form-control"
+          value = {member._id}
           name= {index}
           onChange= {this.handleChange}
           placeholder={index}
-          />;
-        })
-      } 
+          />
+        
+         
+        )
+      }
 
     
       onSubmit(e) {
         e.preventDefault();
-        console.log(`The values are ${this.state.name}, ${this.state.members}` );
+        const newMembers = this.state.members.map((member) => {
+          return member._id
+        })
+
         const obj = {
           name: this.state.name,
-          members: members
+          members: newMembers
         }
-        console.log(obj);
+        console.log(obj)
         axios.put('https://tk-res.herokuapp.com/api/v1/groups/'+ this.props.match.params.groupId, obj)
         .then(res => console.log(res.data)); 
         this.setState({
@@ -63,8 +72,17 @@ class GroupEdit extends Component {
       }
 
       handleChange(e) {
-        members[e.target.name] = e.target.value;
-        console.log(members);
+        console.log(e.target.name + " " + e.target.value)
+        let members = this.state.members.slice()
+        console.log(members)
+        for (let i in members) {
+          if (i === e.target.name) {
+            members[i]._id = e.target.value
+            this.setState({members})
+            console.log(this.state.members);
+            break;
+          }
+        }
       }
 
 
