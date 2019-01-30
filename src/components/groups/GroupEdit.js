@@ -33,6 +33,18 @@ class GroupEdit extends Component {
         });
       }
 
+      groupEditRow() {
+        return this.state.members.map ((member,index) =>{
+          return <input
+          type="text"
+          className="form-control"
+          name= {index}
+          onChange= {this.handleChange}
+          placeholder={index}
+          />;
+        })
+      } 
+
     
       onSubmit(e) {
         e.preventDefault();
@@ -58,15 +70,7 @@ class GroupEdit extends Component {
 
       
   render() {
-    const groupEditRow = this.state.members.map ((member,index) => 
-      <input
-      type="text"
-      className="form-control"
-      name= {index}
-      onChange= {this.handleChange}
-      placeholder={index}
-      />
-      )
+    
     return (
         <div>
             <form onSubmit={this.onSubmit}>
@@ -81,7 +85,7 @@ class GroupEdit extends Component {
             </div>
             <div className="form-group">
                 <label>Members</label>
-                {groupEditRow}
+                {this.groupEditRow()}
             </div>
 
             <div className="form-group">

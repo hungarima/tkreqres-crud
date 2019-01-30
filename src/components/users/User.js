@@ -36,10 +36,11 @@ class User extends Component {
     }
     axios.post('https://tk-res.herokuapp.com/api/v1/users', obj)
     .then(res => {
-      console.log(res.data)
+      
       this.setState({
         users: [...this.state.users, obj]
       })
+      console.log(this.state.users)
     }); 
     this.setState({
       user: '',
@@ -50,13 +51,16 @@ class User extends Component {
 
   userRow() {
     return this.state.users.map(function(list, i) {
-      return <UserDetail list ={list} index={i} />;
+      return <UserDetail list ={list} index={i} key={i}/>;
     })
   }
 
   componentDidMount() {
     axios.get('https://tk-res.herokuapp.com/api/v1/users')
-    .then(data => this.setState({users: data.data}))
+    .then(data => {
+      this.setState({users: data.data})
+      console.log(this.state.users)
+    })
     .catch(err => console.error(err));
   }
 
@@ -65,7 +69,7 @@ class User extends Component {
       <div>
           <h1>User Component</h1>
           <div>
-              <table className="table table-striped">
+              <table className="table table-striped ">
                 <thead>
                   <tr>
                     <th>No.</th>
@@ -75,7 +79,7 @@ class User extends Component {
                   </tr>
                 </thead>
                 <tbody>
-                  { this.userRow()}
+                  {this.userRow()}
                 </tbody>
               </table>
             </div>

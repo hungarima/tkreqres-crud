@@ -6,11 +6,11 @@ const ParentComponent = (props) => <div>
     <div id="children-pane">
       {props.children}
     </div>
-    <p><button onClick={props.addChild}>Add another Member</button></p>  
+    <input type='button' onClick={props.addChild} value='Add another Member' />
   </div>
 
 
-const ChildComponent = (props) => <div>
+const ChildComponent = (props) => <div className="input-group input-group-sm">
     <input 
         type="text" 
         className="form-control"
@@ -18,7 +18,11 @@ const ChildComponent = (props) => <div>
         onChange = {props.handleChange}
         placeholder= {props.number+1}
     />
+    <div className="input-group-append">
+      <button onClick ={props.deleteChild} type='button' className="btn btn-danger">X</button>
+    </div>
 </div>;
+
 const members = [];
 
 class Group extends Component {
@@ -31,6 +35,7 @@ class Group extends Component {
 
     this.onAddChild = this.onAddChild.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.onDeleteChild = this.onDeleteChild.bind(this);
 
     
     this.state = {
@@ -47,7 +52,7 @@ class Group extends Component {
   }
 
   onSubmit(e) {
-
+    console.log(e);
     e.preventDefault();
     const obj = {
       name: this.state.name,
@@ -63,7 +68,7 @@ class Group extends Component {
 
   groupRow() {
     return this.state.groups.map(function(list, i) {
-      return <GroupDetail list = {list} index={i} />;
+      return <GroupDetail list = {list} index={i} key={i} />;
     })
   }
 
@@ -80,8 +85,11 @@ class Group extends Component {
     });
   }
 
+  onDeleteChild() {
+    console.log('Delete')
+  }
+
   handleChange(e) {
-    
     members[e.target.name] = e.target.value;
   }
 
@@ -92,13 +100,14 @@ class Group extends Component {
   render() {
     const children = [];
     for (var i = 0; i < this.state.numChildren; i++) {
-      children.push(<ChildComponent handleChange ={this.handleChange} key ={i} number ={i} />);
+      children.push(<ChildComponent handleChange ={this.handleChange} key ={i} number ={i} deleteChild={this.onDeleteChild}/>);
+      
     };
     return (
       <div>
           <h1>Group Component</h1>
           <div>
-              <table className="table table-striped">
+              <table className="table table-striped table-bordered">
                 <thead>
                   <tr>
                     <th>No.</th>
@@ -124,12 +133,12 @@ class Group extends Component {
                 onChange = {this.onChangeGroup}
                 />
               </div>
-              <div className="form-group">
-                <label>Members</label>
-                <ParentComponent addChild={this.onAddChild}>
+              <label>Members</label>
+              <ParentComponent addChild={this.onAddChild}>
                   {children}
-                </ParentComponent>
-                
+              </ParentComponent>
+              <div className="form-group">
+
               </div>
               
               <div className="form-group">

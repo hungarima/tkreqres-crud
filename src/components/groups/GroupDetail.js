@@ -16,7 +16,6 @@ class GroupDetail extends Component {
         axios.delete('https://tk-res.herokuapp.com/api/v1/groups/'+ this.props.list._id)
         .then(() =>{
             console.log('Deleted');
-            window.location.reload();
         })
         .catch(err => console.error(err));
     }
@@ -28,10 +27,10 @@ class GroupDetail extends Component {
     }
   render() {
     return (
-        <tr>
-        <td>{this.props.index+1}</td>
+        <tr >
+        <td >{this.props.index+1}</td>
         <td>{this.props.list.name}</td>
-        <td>{this.members()}</td>
+        <td className="newline">{this.members()}</td>
         <td>
         <Link to={"/groups/"+this.props.list._id} className="btn btn-primary">Edit</Link>
         </td>

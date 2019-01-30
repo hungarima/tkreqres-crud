@@ -41,7 +41,7 @@ class Example extends Component {
 
   exampleRow() {
     return this.state.examples.map(function(list, i) {
-      return <ExampleDetail list ={list} index={i} />;
+      return <ExampleDetail list ={list} index={i} key={i}/>;
     })
   }
 
@@ -52,6 +52,7 @@ class Example extends Component {
     .then(data => this.setState({examples: data.data}))
     .catch(err => console.error(err));
   }
+  
   render() {
     return (
         <div>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 class UserDetail extends Component {
@@ -12,10 +12,8 @@ class UserDetail extends Component {
         axios.delete('https://tk-res.herokuapp.com/api/v1/users/'+ this.props.list._id)
         .then(() => {
             console.log('Deleted');
-
     })
         .catch(err => console.error(err));
-        
         
     }
   render() {
@@ -29,7 +27,7 @@ class UserDetail extends Component {
             <Link to={"/users/"+this.props.list._id} className="btn btn-primary">Edit</Link>
             </td>
             <td>
-                <button onClick= {this.delete()} className="btn btn-danger">Delete</button>
+                <button onClick= {this.delete} className="btn btn-danger">Delete</button>
             </td>
         </tr>
     
@@ -37,4 +35,4 @@ class UserDetail extends Component {
   }
 }
 
-export default withRouter(UserDetail);
+export default UserDetail;

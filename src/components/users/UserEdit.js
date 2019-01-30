@@ -44,7 +44,6 @@ class UserEdit extends Component {
         }
         axios.put('https://tk-res.herokuapp.com/api/v1/users/'+this.props.match.params.userId, obj)
         .then(res => console.log(res.data));
-        this.props.history.push('/users');
     }
     
     
